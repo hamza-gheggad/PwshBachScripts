@@ -5,7 +5,7 @@ for PROJECT in $(\
   --format="value(projectId)" \
   )
 do
-  echo "%s:\n" ${PROJECT}
+  printf "%s:\n" ${PROJECT}
   gcloud projects get-iam-policy ${PROJECT} \
   --flatten="bindings[].members[]" \
   --filter="bindings.role=${ROLE}" \
