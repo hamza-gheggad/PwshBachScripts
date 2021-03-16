@@ -22,8 +22,9 @@ do
             --format="table(bindings.role)" \
             --filter="bindings.members:$User")
             prefix_role="ROLE"
-            FT_Role=$(echo "$Role"  | sed -e "s/^$prefix_role//")
-            printf "%-40s | %-40s | %-40s | %-40s\n" "$PROJECT" "User" "$User" "$FT_Role"
+            Role_sans_prefix=$(echo $Role  | sed -e "s/^$prefix_role//")
+            FT_Role=$(echo $Role_sans_prefix | tr ' ' ' && ')
+            printf "%-40s | %-40s | %-40s | %-40s | %-40s\n" "$PROJECT" "User" "$User" "$FT_Role" "N/A"
         fi
         shift
     done
@@ -41,8 +42,9 @@ do
             --format="table(bindings.role)" \
             --filter="bindings.members:$Group")
             prefix_role="ROLE"
-            FT_Role=$(echo "$Role"  | sed -e "s/^$prefix_role//")
-            printf "%-40s | %-40s | %-40s | %-40s\n" "$PROJECT" "Group" "$Group" "$FT_Role"
+            Role_sans_prefix=$(echo $Role  | sed -e "s/^$prefix_role//")
+            FT_Role=$(echo $Role_sans_prefix | tr ' ' ' && ')
+            printf "%-40s | %-40s | %-40s | %-40s | %-40s\n" "$PROJECT" "Group" "$Group" "$FT_Role" "N/A"
         fi
         shift
     done
@@ -60,13 +62,14 @@ do
             --format="table(bindings.role)" \
             --filter="bindings.members:$SA")
             prefix_role="ROLE"
-            FT_Role=$(echo "$Role"  | sed -e "s/^$prefix_role//")
+            Role_sans_prefix=$(echo $Role  | sed -e "s/^$prefix_role//")
+            FT_Role=$(echo $Role_sans_prefix | tr ' ' ' && ')
             Key=$(gcloud iam service-accounts keys list --iam-account=$SA --format="table(KEY_ID)" --filter="9999")
             prefix_keyid="KEY_ID"
             FT_Key=$(echo $Key | sed -e "s/^$prefix_keyid//")
             if [ -z "$Key" ]
             then
-                :
+                printf "%-40s | %-40s | %-40s | %-40s | %-40s\n" "$PROJECT" "ServiceAccount" "$SA" "$FT_Role" "NULL"
             else
                 printf "%-40s | %-40s | %-40s | %-40s | %-40s\n" "$PROJECT" "ServiceAccount" "$SA" "$FT_Role" "$FT_Key"
             fi
@@ -113,8 +116,9 @@ do
             --format="table(bindings.role)" \
             --filter="bindings.members:$User")
             prefix_role="ROLE"
-            FT_Role=$(echo "$Role"  | sed -e "s/^$prefix_role//")
-            printf "%-40s | %-40s | %-40s | %-40s\n" "FOLDER:$FOLDER" "User" "$User" "$FT_Role"
+            Role_sans_prefix=$(echo $Role  | sed -e "s/^$prefix_role//")
+            FT_Role=$(echo $Role_sans_prefix | tr ' ' ' && ')
+            printf "%-40s | %-40s | %-40s | %-40s | %-40s\n" "FOLDER:$FOLDER" "User" "$User" "$FT_Role" "N/A"
         fi
         shift
     done
@@ -132,8 +136,9 @@ do
             --format="table(bindings.role)" \
             --filter="bindings.members:$Group")
             prefix_role="ROLE"
-            FT_Role=$(echo "$Role"  | sed -e "s/^$prefix_role//")
-            printf "%-40s | %-40s | %-40s | %-40s\n" "FOLDER:$FOLDER" "Group" "$Group" "$FT_Role"
+            Role_sans_prefix=$(echo $Role  | sed -e "s/^$prefix_role//")
+            FT_Role=$(echo $Role_sans_prefix | tr ' ' ' && ')
+            printf "%-40s | %-40s | %-40s | %-40s | %-40s\n" "FOLDER:$FOLDER" "Group" "$Group" "$FT_Role" "N/A"
         fi
         shift
     done
@@ -151,13 +156,14 @@ do
             --format="table(bindings.role)" \
             --filter="bindings.members:$SA")
             prefix_role="ROLE"
-            FT_Role=$(echo "$Role"  | sed -e "s/^$prefix_role//")
+            Role_sans_prefix=$(echo $Role  | sed -e "s/^$prefix_role//")
+            FT_Role=$(echo $Role_sans_prefix | tr ' ' ' && ')
             Key=$(gcloud iam service-accounts keys list --iam-account=$SA --format="table(KEY_ID)" --filter="9999")
             prefix_keyid="KEY_ID"
             FT_Key=$(echo $Key | sed -e "s/^$prefix_keyid//")
             if [ -z "$Key" ]
             then
-                :
+                printf "%-40s | %-40s | %-40s | %-40s | %-40s\n" "$PROJECT" "ServiceAccount" "$SA" "$FT_Role" "NULL"
             else
                 printf "%-40s | %-40s | %-40s | %-40s | %-40s\n" "$PROJECT" "ServiceAccount" "$SA" "$FT_Role" "$FT_Key"
             fi
