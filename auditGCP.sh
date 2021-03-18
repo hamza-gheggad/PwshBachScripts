@@ -202,7 +202,7 @@ do
     then
         :
     else
-        Role=$(gcloud organizations get-iam-policy 478735633679 \
+        Role=$(gcloud organizations get-iam-policy ORGANIZATION_ID \
         --flatten="bindings[].members" \
         --format="table(bindings.role)" \
         --filter="bindings.members:$User")
@@ -222,7 +222,7 @@ do
     then
         :
     else
-        Role=$(gcloud organizations get-iam-policy 478735633679 \
+        Role=$(gcloud organizations get-iam-policy ORGANIZATION_ID \
         --flatten="bindings[].members" \
         --format="table(bindings.role)" \
         --filter="bindings.members:$Group")
@@ -242,7 +242,7 @@ do
     then
         :
     else
-        Role=$(gcloud organizations get-iam-policy 478735633679 \
+        Role=$(gcloud organizations get-iam-policy ORGANIZATION_ID \
         --flatten="bindings[].members" \
         --format="table(bindings.role)" \
         --filter="bindings.members:$SA")
